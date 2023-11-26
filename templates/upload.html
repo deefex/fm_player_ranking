@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled File Upload</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>FM24 Player Ranking</h1>
+    <p>Original concept and python scoring calculations by <a href="https://www.youtube.com/@squirrel_plays_fof4318">squirrel_plays</a>. Use <a href="https://www.mediafire.com/file/ymf6xhw0bk4enjj/FM24_files.zip/file" target="_blank">these views</a> to export data from Football Manager.</p>
+    <p> The role codes (in brackets) will denote the column headers in the generated table</p>
+    <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">Select an FM24 HTML file to upload</label>
+            <input class="form-control" type="file" id="fileInput" name="file">
+        </div>
+
+        <!-- Display the number of selected roles -->
+        <div class="mt-2">
+            <p>Select Roles to Display: (8 Max) - <span id="selectedRolesCount">0</span> / 8 Selected</p>
+        </div>
+
+        <!-- Display the selected roles pills -->
+        <div id="selectedRolesPills" class="mb-2">
+            <div class="container mt-3">
+                <div id="selectedRolesInfo" class="mb-2">
+                    No roles selected
+                </div>
+                <div id="selectedRolesPills" class="d-flex flex-wrap"></div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#playerRolesCollapse" aria-expanded="false" aria-controls="playerRolesCollapse">
+                Select Roles
+            </button>
+            <div class="collapse mt-2" id="playerRolesCollapse">
+                <!-- Collapsible Section: Select Roles -->
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            {% for role in roles_data[:29] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="{{ role.id }}" name="playerRoles" value="{{ role.id }}">
+                                    <label class="form-check-label d-flex align-items-center" for="{{ role.id }}">{{ role.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for role in roles_data[29:58] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="{{ role.id }}" name="playerRoles" value="{{ role.id }}">
+                                    <label class="form-check-label d-flex align-items-center" for="{{ role.id }}">{{ role.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col">
+                            {% for role in roles_data[58:] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="{{ role.id }}" name="playerRoles" value="{{ role.id }}">
+                                    <label class="form-check-label d-flex align-items-center" for="{{ role.id }}">{{ role.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <button class="btn btn-secondary" type="reset">Reset</button>
+    </form>
+</div>
+
+<!-- Display the processed data table here -->
+{% if result_table %}
+    <div class="container mt-5 container-margins">
+    <div class="table-responsive">
+        {{ result_table | safe }}
+    </div>
+</div>
+{% endif %}
+<!-- Custom JS -->
+<script src="../static/custom/js/script.js"></script>
+<script src="../static/custom/js/formValidation.js"></script>
+<script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
