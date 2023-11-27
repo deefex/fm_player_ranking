@@ -3,8 +3,6 @@ from role_scoring_functions.apply_selected_scores import apply_selected_scores
 
 
 def parse_and_calculate(file, selected_roles):
-    print('parse_and_calculate')
-    print(selected_roles)
     # This reads as a list, not a dataframe
     squad_rawdata_list = pd.read_html(file, header=0, encoding="utf-8", keep_default_na=False)
 

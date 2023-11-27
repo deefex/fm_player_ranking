@@ -36,7 +36,5 @@ On the command line:
 
 ## Todo
 - Write some tests!
-- Move away from the dev server
-- Turn off debugger
 - Table styling - column highlighting in conjunction with the current bootstrap styling?
 
