@@ -29,7 +29,7 @@ def parse_and_calculate(file, selected_roles):
     table_html = squad.to_html(
         table_id="table",
         index=False,
-        classes="table table-success table-striped table-bordered"
+        classes="table table-success table-striped-columns table-bordered"
     )
 
     html = f"""
